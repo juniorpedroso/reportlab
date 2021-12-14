@@ -86,7 +86,7 @@ def _genContactsTable(width, height):
     with open(r'resources\tabledata.txt', 'r') as file:  # problema 1
         for line in file:
             if line != '\n':
-                dataList.append(line)  # problema 2
+                dataList.append(line.replace('\n', ''))  # problema 2
 
     matrix = [
         ['', '', '', ''],
@@ -103,11 +103,19 @@ def _genContactsTable(width, height):
 
             if idx == len(dataList):
                 break
+        if idx == len(dataList):
+            break
 
     res = Table(matrix, widthList, heightList)
 
     res.setStyle([
-        ('GRID', (0, 0), (-1, -1), 1, 'red'),
+        # ('GRID', (0, 0), (-1, -1), 1, 'red'),
+
+        ('ALIGN', (3, 0), (3, 3), 'RIGHT'),
+        ('RIGHTPADDING', (3, 0), (3, 3), 20),
+
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+
     ])
 
     return res
@@ -115,7 +123,33 @@ def _genContactsTable(width, height):
 
 def _genPriceListTable(width, height):
 
-    return 'PRICE LIST'
+    titleStyle = ParagraphStyle('titleStyle')
+    titleStyle.fontSize = 20
+    titleStyle.fontName = 'Helvetica-Bold'
+    titleStyle.spaceAfter = 15
+
+    titlePara = Paragraph('Detais', titleStyle)
+
+    pricesTable = _genPricesTable(width, height * 70 / 100)
+
+    elementsList = [titlePara, pricesTable]
+
+    res = Table([[elementsList]], width, height)
+
+    res.setStyle([
+        ('GRID', (0, 0), (-1, -1), 1, 'red'),
+
+        ('LEFTPADDING', (0, 0), (-1, -1), 0),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 0),
+
+    ])
+
+    return res
+
+
+def _genPricesTable(width, height):
+
+    return Table([['no data']])
 
 
 def _genDescriptionParasTable():
@@ -206,3 +240,6 @@ def _genAboutTable(width, height):
     ])
 
     return res
+
+
+# Parei no 3:18:45
