@@ -9,11 +9,11 @@ def genHeaderTable(width, height):
         0,
     ]
 
-    leftImagePath = 'paradiseHotel.jpg'
+    leftImagePath = 'resources\paradiseHotel.jpg'
     leftImageWidth = widthList[0]
     leftImage = Image(leftImagePath, leftImageWidth, height)
 
-    rightImagePath = 'logoParadise.png'
+    rightImagePath = 'resources\logoParadise.png'
     rightImageWidth = widthList[1]
     rightImage = Image(
         rightImagePath, rightImageWidth, height,
