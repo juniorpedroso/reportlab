@@ -43,4 +43,4 @@ mainTable.drawOn(pdf, 0, 0)
 
 pdf.showPage()
 
-pdf.save() 
+pdf.save()
