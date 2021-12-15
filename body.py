@@ -182,19 +182,32 @@ def _genPricesTable(width, height):
 
         ('BACKGROUND', (0, 0), (-1, 0), color),
         ('TEXTCOLOR', (0, 0), (-1, 0), 'white'),
+        ('FONTSIZE', (0, 0), (-1, 0), 12),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
 
-        # ('LEFTPADDING', (0, 0), (-1, -1), 0),
-        # ('BOTTOMPADDING', (0, 0), (-1, -1), 0),
+        ('ALIGN', (1, 0), (-1, 0), 'CENTER'),
 
-        ('ALIGN', (1, 0), (2, -1), 'CENTER'),
-        ('ALIGN', (3, 0), (-1, 0), 'CENTER'),
+        ('ALIGN', (1, 1), (2, -1), 'CENTER'),
+
         ('ALIGN', (5, 1), (5, -1), 'RIGHT'),
+
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
 
         # ('BACKGROUND', (0, 0), (-1, -1), color),
         # ('TEXTCOLOR', (0, 0), (-1, -1), 'white'),
 
     ])
+
+    for i in range(1, rowCount):
+        if i % 2 == 0:
+            bc = colors.antiquewhite
+
+        else:
+            bc = colors.beige
+
+        res.setStyle([
+            ('BACKGROUND', (0, i), (-1, i), bc)
+        ])
 
     return res
 
