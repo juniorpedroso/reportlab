@@ -2,6 +2,7 @@ from reportlab.lib import colors
 from reportlab.platypus import Table, Image
 from reportlab.platypus import Table, Paragraph
 from reportlab.lib.styles import ParagraphStyle
+import csv
 
 
 def genBodyTable(width, height):
@@ -137,7 +138,7 @@ def _genPriceListTable(width, height):
     res = Table([[elementsList]], width, height)
 
     res.setStyle([
-        ('GRID', (0, 0), (-1, -1), 1, 'red'),
+        # ('GRID', (0, 0), (-1, -1), 1, 'red'),
 
         ('LEFTPADDING', (0, 0), (-1, -1), 0),
         ('BOTTOMPADDING', (0, 0), (-1, -1), 0),
@@ -149,7 +150,53 @@ def _genPriceListTable(width, height):
 
 def _genPricesTable(width, height):
 
-    return Table([['no data']])
+    matrix = []
+
+    with open(r'resources\pricesTable.csv') as file:
+        matrix = list(csv.reader(file))
+
+    if len(matrix) < 2 or len(matrix[0]) != 6:
+        return Table([['no data']])
+
+    widthList = [
+        width * 20 / 100,
+        width * 20 / 100,
+        width * 25 / 100,
+        width * 15 / 100,
+        width * 10 / 100,
+        width * 10 / 100,
+    ]
+
+    rowCount = len(matrix)
+    res = Table(matrix, widthList, height / rowCount)
+
+    # r - red (vermelho)
+    # g - green (verde)
+    # b - blue (azul)
+    # a - alpha (opacity) - Transparente ou não
+    color = colors.toColor('rgba(0, 115, 153, 0.9)')
+
+    res.setStyle([
+        # ('GRID', (0, 0), (-1, -1), 1, 'red'),
+        ('INNERGRID', (0, 0), (-1, -1), 0.5, 'grey'),  # Contornos internos
+
+        ('BACKGROUND', (0, 0), (-1, 0), color),
+        ('TEXTCOLOR', (0, 0), (-1, 0), 'white'),
+
+        # ('LEFTPADDING', (0, 0), (-1, -1), 0),
+        # ('BOTTOMPADDING', (0, 0), (-1, -1), 0),
+
+        ('ALIGN', (1, 0), (2, -1), 'CENTER'),
+        ('ALIGN', (3, 0), (-1, 0), 'CENTER'),
+        ('ALIGN', (5, 1), (5, -1), 'RIGHT'),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+
+        # ('BACKGROUND', (0, 0), (-1, -1), color),
+        # ('TEXTCOLOR', (0, 0), (-1, -1), 'white'),
+
+    ])
+
+    return res
 
 
 def _genDescriptionParasTable():
@@ -240,6 +287,3 @@ def _genAboutTable(width, height):
     ])
 
     return res
-
-
-# Parei no 3:18:45
