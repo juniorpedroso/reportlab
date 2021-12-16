@@ -193,21 +193,23 @@ def _genPricesTable(width, height):
 
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
 
-        # ('BACKGROUND', (0, 0), (-1, -1), color),
-        # ('TEXTCOLOR', (0, 0), (-1, -1), 'white'),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [
+            'antiquewhite', 'beige'
+        ])
+
 
     ])
 
-    for i in range(1, rowCount):
-        if i % 2 == 0:
-            bc = colors.antiquewhite
+    # for i in range(1, rowCount):
+    #     if i % 2 == 0:
+    #         bc = colors.antiquewhite
 
-        else:
-            bc = colors.beige
+    #     else:
+    #         bc = colors.beige
 
-        res.setStyle([
-            ('BACKGROUND', (0, i), (-1, i), bc)
-        ])
+    #     res.setStyle([
+    #         ('BACKGROUND', (0, i), (-1, i), bc)
+    #     ])
 
     return res
 
